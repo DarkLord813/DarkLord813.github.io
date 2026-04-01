@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>𝕻𝕾𝕻 𝕲𝕬𝕸𝕰𝕽𝕾™ · Ultimate Game Vault</title>
+  <title>𝕻𝕾𝕻 𝕲𝕬𝕸𝕰𝕽𝕾™ · Half-Star Ratings & GitHub Backup</title>
   <link rel="icon" type="image/x-icon" href="icon/favicon.ico">
   <link rel="shortcut icon" type="image/png" href="icon/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800;900&display=swap" rel="stylesheet">
@@ -95,8 +95,8 @@
     .backup-status { display: flex; align-items: center; gap: 12px; }
     .backup-status i { font-size: 24px; color: #ff5555; animation: pulse 2s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-    .backup-count { background: #dc2626; padding: 4px 12px; border-radius: 30px; font-size: 12px; font-weight: bold; }
-    .manual-backup-btn, .github-save-btn {
+    .github-status { font-size: 12px; background: #1f0a0a; padding: 4px 12px; border-radius: 20px; }
+    .github-backup-btn {
       background: #2a0a0a;
       border: 1px solid #dc2626;
       padding: 8px 20px;
@@ -107,7 +107,7 @@
       font-weight: 600;
       transition: 0.2s;
     }
-    .manual-backup-btn:hover, .github-save-btn:hover { background: #dc2626; color: white; }
+    .github-backup-btn:hover { background: #dc2626; color: white; }
     .filter-section {
       background: #0f0505cc;
       border-radius: 28px;
@@ -204,7 +204,7 @@
       transition: 0.2s;
     }
     .upload-btn:hover { background: linear-gradient(95deg, #dc2626, #ff4444); box-shadow: 0 0 18px #ff2a2a; }
-    .game-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 32px; margin-top: 24px; }
+    .game-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 32px; margin-top: 24px; }
     .game-card {
       background: #0a0303;
       border-radius: 28px;
@@ -221,29 +221,44 @@
     .genre-tag { background: #dc2626; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; color: white; }
     .tags-container { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
     .game-tag { background: #2a0a0a; border: 1px solid #b91c1c; padding: 3px 10px; border-radius: 20px; font-size: 10px; color: #ffaaaa; }
+    .game-desc { color: #c9acac; font-size: 0.85rem; line-height: 1.45; margin: 12px 0; }
     .rating-section { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 18px 0; gap: 12px; }
-    .stars-container { display: flex; gap: 5px; cursor: pointer; }
-    .star { font-size: 22px; transition: 0.1s; color: #ffd700; text-shadow: 0 0 4px #ffaa00; }
-    .star.inactive-star { color: #4a4a4a; text-shadow: none; }
+    .stars-container { display: flex; gap: 3px; cursor: pointer; }
+    .star {
+      font-size: 22px;
+      transition: 0.1s;
+      position: relative;
+      display: inline-block;
+    }
+    .star.full { color: #ffd700; text-shadow: 0 0 4px #ffaa00; }
+    .star.half { color: #ffd700; text-shadow: 0 0 4px #ffaa00; position: relative; }
+    .star.half:before { content: "★"; position: absolute; left: 0; width: 50%; overflow: hidden; color: #ffd700; }
+    .star.half:after { content: "★"; color: #4a4a4a; }
+    .star.empty { color: #4a4a4a; }
     .avg-rating { font-size: 13px; background: #2a0a0a; padding: 5px 14px; border-radius: 40px; border: 1px solid #b91c1c; font-weight: 600; }
-    .download-link {
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .download-link, .share-link {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       background: #b91c1c30;
       color: #ff9999;
-      padding: 10px 24px;
+      padding: 8px 16px;
       border-radius: 40px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-weight: 600;
+      font-size: 0.85rem;
       transition: 0.2s;
       border: 1px solid #b91c1c;
       cursor: pointer;
-      width: 100%;
+      flex: 1;
       justify-content: center;
     }
-    .download-link:hover { background: #b91c1c; color: #fff; }
+    .download-link:hover, .share-link:hover { background: #b91c1c; color: #fff; }
     .admin-actions { display: flex; gap: 12px; margin-top: 18px; border-top: 1px solid #b91c1c; padding-top: 14px; }
     .delete-game { background: transparent; border: 1px solid #e15554; color: #ff8888; padding: 6px 16px; border-radius: 30px; cursor: pointer; font-size: 12px; font-weight: bold; }
     .delete-game:hover { background: #e15554; color: black; }
@@ -271,11 +286,7 @@
       border-radius: 20px;
       border: 2px solid #dc2626;
     }
-    .fullscreen-title {
-      font-size: 2rem;
-      margin-top: 20px;
-      color: #ff5555;
-    }
+    .fullscreen-title { font-size: 2rem; margin-top: 20px; color: #ff5555; }
     .close-fullscreen {
       position: absolute;
       top: 30px;
@@ -291,11 +302,33 @@
       align-items: center;
       justify-content: center;
     }
+    .share-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #0f0505;
+      border: 2px solid #dc2626;
+      border-radius: 32px;
+      padding: 30px;
+      z-index: 20001;
+      text-align: center;
+      min-width: 320px;
+    }
+    .share-modal input {
+      width: 100%;
+      background: #1f0a0a;
+      border: 1px solid #b91c1c;
+      border-radius: 40px;
+      padding: 12px;
+      color: white;
+      margin: 15px 0;
+    }
     .empty-state { text-align: center; padding: 60px; color: #b88080; background: #0a0303; border-radius: 48px; border: 1px dashed #dc2626; }
     footer { margin-top: 60px; text-align: center; font-size: 13px; color: #a06f6f; border-top: 1px solid #b91c1c; padding-top: 32px; }
     .toast { position: fixed; bottom: 30px; left: 20px; background: #b91c1c; color: white; padding: 12px 26px; border-radius: 40px; font-weight: bold; z-index: 9999; font-size: 14px; box-shadow: 0 0 18px #ff0000; animation: fadeIn 0.2s; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 720px) { .social-icons a { font-size: 20px; } .logo h1 { font-size: 1.4rem; } }
+    @media (max-width: 720px) { .social-icons a { font-size: 20px; } .logo h1 { font-size: 1.4rem; } .action-buttons { flex-direction: column; } }
   </style>
 </head>
 <body>
@@ -303,7 +336,7 @@
   <div class="header">
     <div class="logo">
       <div class="logo-icon" id="logoIcon"><i class="fas fa-skull"></i></div>
-      <div><h1>𝕻𝕾𝕻 𝕲𝕬𝕸𝕰𝕽𝕾™</h1><p><i class="fas fa-fire"></i> Ultimate Game Vault · Gold Stars</p></div>
+      <div><h1>𝕻𝕾𝕻 𝕲𝕬𝕸𝕰𝕽𝕾™</h1><p><i class="fas fa-fire"></i> Half-Star Ratings · GitHub Backup</p></div>
     </div>
     <div style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap;">
       <div class="social-icons">
@@ -318,8 +351,15 @@
   </div>
 
   <div class="auto-backup-banner">
-    <div class="backup-status"><i class="fas fa-save"></i><div><strong>🔄 Auto-Backup</strong><br><span>JSON saved to GitHub directory</span></div></div>
-    <div><span class="backup-count" id="backupCountDisplay">0 backups</span><button class="manual-backup-btn" id="manualBackupBtn" disabled><i class="fas fa-download"></i> Manual Backup</button><button class="github-save-btn" id="githubSaveBtn" disabled><i class="fab fa-github"></i> Save to GitHub</button></div>
+    <div class="backup-status">
+      <i class="fas fa-save"></i>
+      <div><strong>📦 GitHub Backup</strong><br><span id="githubStatusText">backup.json ready</span></div>
+    </div>
+    <div>
+      <span class="github-status" id="backupCountDisplay">0 games</span>
+      <button class="github-backup-btn" id="githubBackupBtn"><i class="fab fa-github"></i> Save to backup.json</button>
+      <button class="github-backup-btn" id="loadFromGitHubBtn"><i class="fas fa-download"></i> Load backup.json</button>
+    </div>
   </div>
 
   <div class="filter-section">
@@ -340,51 +380,176 @@
     <button class="upload-btn" id="uploadGameBtn"><i class="fas fa-cloud-upload-alt"></i> Publish Game</button>
   </div>
 
-  <div style="display: flex; justify-content: space-between; margin: 24px 0 18px;"><h2><i class="fas fa-skull"></i> GAME DIRECTORY <span id="gameCountBadge">0</span></h2><div><i class="fas fa-star" style="color:#ffd700;"></i> Gold stars = rated</div></div>
+  <div style="display: flex; justify-content: space-between; margin: 24px 0 18px;"><h2><i class="fas fa-skull"></i> GAME DIRECTORY <span id="gameCountBadge">0</span></h2><div><i class="fas fa-star" style="color:#ffd700;"></i> Half-star ratings · <i class="fas fa-share-alt"></i> Share games</div></div>
   <div id="gamesContainer" class="game-list"></div>
-  <footer><p>𝕻𝕾𝕻 𝕲𝕬𝕸𝕰𝕽𝕾™ — Gold Stars | Fullscreen Game View | GitHub Auto-Save</p></footer>
+  <footer><p>𝕻𝕾𝕻 𝕲𝕬𝕸𝕰𝕽𝕾™ — Half-star ratings (click stars to rate 0.5-5) | Auto GitHub backup.json | Share any game</p></footer>
 </div>
 
 <script>
   const ADMIN_PASSWORD = "pspgamers5";
-  const STORAGE_GAMES = "psp_gamers_ultimate";
+  const STORAGE_GAMES = "psp_gamers_halfstar";
+  const BACKUP_FILENAME = "backup.json";
+  
   let isAdminLoggedIn = false;
   let gamesData = [];
-  let backupCounter = 0;
   let currentGenreFilter = "all";
   let currentTagFilter = "all";
   let uploadedImageData = null;
 
   function loadGames() {
     const stored = localStorage.getItem(STORAGE_GAMES);
-    if (stored) { try { let games = JSON.parse(stored); games = games.map(g => { if(g.ratings?.length) g.averageRating = g.ratings.reduce((a,b)=>a+b,0)/g.ratings.length; else { g.ratings = []; g.averageRating = 0; } if(!g.tags) g.tags = []; if(!g.genre) g.genre = "Action"; return g; }); saveGames(games); return games; } catch(e) { return []; } }
+    if (stored) {
+      try {
+        let games = JSON.parse(stored);
+        games = games.map(g => { 
+          if(g.ratings?.length) g.averageRating = g.ratings.reduce((a,b)=>a+b,0)/g.ratings.length; 
+          else { g.ratings = []; g.averageRating = 0; } 
+          if(!g.tags) g.tags = []; 
+          if(!g.genre) g.genre = "Action"; 
+          return g;
+        });
+        saveGames(games);
+        return games;
+      } catch(e) { return []; }
+    }
     return [];
   }
-  function saveGames(games) { localStorage.setItem(STORAGE_GAMES, JSON.stringify(games)); }
 
-  function autoBackupToGitHub(triggerAction) {
-    const backupData = { timestamp: new Date().toISOString(), action: triggerAction, totalGames: gamesData.length, games: gamesData };
+  function saveGames(games) { 
+    localStorage.setItem(STORAGE_GAMES, JSON.stringify(games));
+    updateBackupCount();
+  }
+
+  function updateBackupCount() {
+    const span = document.getElementById('backupCountDisplay');
+    if (span) span.innerHTML = `${gamesData.length} games`;
+  }
+
+  function renderStarDisplay(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalf = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
+    const roundedHalf = rating - fullStars >= 0.5;
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        starsHtml += '<i class="star fas fa-star full"></i>';
+      } else if (i === fullStars + 1 && (hasHalf || roundedHalf)) {
+        starsHtml += '<i class="star fas fa-star-half-alt half" style="color:#ffd700;"></i>';
+      } else {
+        starsHtml += '<i class="star far fa-star empty" style="color:#4a4a4a;"></i>';
+      }
+    }
+    return starsHtml;
+  }
+
+  function renderInteractiveStars(gameId, currentRating) {
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+      starsHtml += `<i class="star fas fa-star" data-star-value="${i}" data-game="${gameId}" style="font-size:22px; cursor:pointer; color:#ffd700; margin-right:3px;"></i>`;
+    }
+    return starsHtml;
+  }
+
+  function showToast(msg, isErr = false) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = `<i class="fas ${isErr ? 'fa-exclamation-triangle' : 'fa-crown'}"></i> ${msg}`;
+    document.body.appendChild(t);
+    setTimeout(() => t.remove(), 2800);
+  }
+
+  // GitHub Backup Functions
+  function saveToGitHubBackup() {
+    const backupData = {
+      timestamp: new Date().toISOString(),
+      version: "1.0",
+      totalGames: gamesData.length,
+      games: gamesData
+    };
     const dataStr = JSON.stringify(backupData, null, 2);
-    const blob = new Blob([dataStr], {type: "application/json"});
+    const blob = new Blob([dataStr], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    const dateStr = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-    a.download = `pspgamers_backup_${triggerAction}_${dateStr}.json`;
+    a.download = BACKUP_FILENAME;
     a.href = url;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    backupCounter++;
-    const backupSpan = document.getElementById('backupCountDisplay');
-    if (backupSpan) backupSpan.innerHTML = `${backupCounter} backups created`;
-    showToast(`💾 Backup saved! Add to GitHub repo: ${a.download}`);
+    showToast(`💾 backup.json saved! Upload this file to your GitHub repo root.`);
   }
-  function saveToGitHubDirectory() { autoBackupToGitHub("github_save"); showToast("📁 JSON ready. Upload this file to your GitHub repo /games-data/ folder"); }
 
-  function showToast(msg, isErr = false) { const t = document.createElement('div'); t.className = 'toast'; t.innerHTML = `<i class="fas ${isErr ? 'fa-exclamation-triangle' : 'fa-crown'}"></i> ${msg}`; document.body.appendChild(t); setTimeout(() => t.remove(), 2800); }
+  function loadFromGitHubBackup() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          let importedGames = data.games || (Array.isArray(data) ? data : null);
+          if (!importedGames) throw new Error();
+          importedGames = importedGames.map(g => {
+            if (!g.ratings) g.ratings = [];
+            const total = g.ratings.reduce((s, r) => s + r, 0);
+            g.averageRating = g.ratings.length ? total / g.ratings.length : 0;
+            if (!g.tags) g.tags = [];
+            if (!g.genre) g.genre = "Action";
+            return g;
+          });
+          gamesData = importedGames;
+          saveGames(gamesData);
+          renderFilterButtons();
+          renderGames();
+          showToast(`✅ Loaded ${gamesData.length} games from backup.json`);
+        } catch(err) {
+          showToast("Invalid backup file", true);
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
 
-  // Screenshot upload handler
+  // Admin Functions
+  function showAdminLoginModal() {
+    const modal = document.createElement('div');
+    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:10000;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = `<div style="background:#0f0505;border:2px solid #dc2626;border-radius:48px;padding:40px;max-width:400px;text-align:center;"><i class="fas fa-skull" style="font-size:48px;color:#dc2626;"></i><h2 style="color:#ff5555;">Admin Access</h2><input type="password" id="adminPassword" placeholder="Password" style="width:100%;background:#1f0a0a;border:1px solid #b91c1c;border-radius:60px;padding:14px;margin:20px 0;"><button id="loginSubmitBtn" style="background:#dc2626;border:none;padding:12px;border-radius:60px;color:white;width:100%;cursor:pointer;">Verify</button><div id="loginError" style="color:#ff8888;margin-top:12px;display:none;">Wrong password</div></div>`;
+    document.body.appendChild(modal);
+    document.getElementById('loginSubmitBtn').onclick = () => { 
+      if(document.getElementById('adminPassword').value === ADMIN_PASSWORD) { 
+        isAdminLoggedIn = true; 
+        modal.remove(); 
+        enableAdminMode(); 
+        showToast("Admin access granted"); 
+      } else { 
+        document.getElementById('loginError').style.display = 'block'; 
+      } 
+    };
+  }
+  
+  function enableAdminMode() { 
+    document.getElementById('adminPanel').classList.add('show'); 
+    document.getElementById('adminToggleBtn').classList.add('active'); 
+    document.getElementById('adminToggleBtn').innerHTML = '<i class="fas fa-user-check"></i> Admin ON'; 
+    updateAdminDeleteButtons(); 
+  }
+  
+  function logoutAdmin() { 
+    isAdminLoggedIn = false; 
+    document.getElementById('adminPanel').classList.remove('show'); 
+    document.getElementById('adminToggleBtn').classList.remove('active'); 
+    document.getElementById('adminToggleBtn').innerHTML = '<i class="fas fa-user-shield"></i> Admin Login'; 
+    updateAdminDeleteButtons(); 
+  }
+  
+  function toggleAdmin() { isAdminLoggedIn ? logoutAdmin() : showAdminLoginModal(); }
+
+  // Screenshot upload
   document.getElementById('uploadScreenshotBtn')?.addEventListener('click', () => document.getElementById('screenshotFileInput').click());
   document.getElementById('screenshotFileInput')?.addEventListener('change', (e) => {
     const file = e.target.files[0];
@@ -399,17 +564,6 @@
       reader.readAsDataURL(file);
     }
   });
-
-  function showAdminLoginModal() {
-    const modal = document.createElement('div');
-    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:10000;display:flex;align-items:center;justify-content:center;';
-    modal.innerHTML = `<div style="background:#0f0505;border:2px solid #dc2626;border-radius:48px;padding:40px;max-width:400px;text-align:center;"><i class="fas fa-skull" style="font-size:48px;color:#dc2626;"></i><h2 style="color:#ff5555;">Admin Access</h2><input type="password" id="adminPassword" placeholder="Password" style="width:100%;background:#1f0a0a;border:1px solid #b91c1c;border-radius:60px;padding:14px;margin:20px 0;"><button id="loginSubmitBtn" style="background:#dc2626;border:none;padding:12px;border-radius:60px;color:white;width:100%;cursor:pointer;">Verify</button><div id="loginError" style="color:#ff8888;margin-top:12px;display:none;">Wrong password</div></div>`;
-    document.body.appendChild(modal);
-    document.getElementById('loginSubmitBtn').onclick = () => { if(document.getElementById('adminPassword').value === ADMIN_PASSWORD) { isAdminLoggedIn = true; modal.remove(); enableAdminMode(); showToast("Admin access granted"); } else { document.getElementById('loginError').style.display = 'block'; } };
-  }
-  function enableAdminMode() { document.getElementById('adminPanel').classList.add('show'); document.getElementById('adminToggleBtn').classList.add('active'); document.getElementById('adminToggleBtn').innerHTML = '<i class="fas fa-user-check"></i> Admin ON'; document.getElementById('manualBackupBtn').disabled = false; document.getElementById('githubSaveBtn').disabled = false; updateAdminDeleteButtons(); }
-  function logoutAdmin() { isAdminLoggedIn = false; document.getElementById('adminPanel').classList.remove('show'); document.getElementById('adminToggleBtn').classList.remove('active'); document.getElementById('adminToggleBtn').innerHTML = '<i class="fas fa-user-shield"></i> Admin Login'; document.getElementById('manualBackupBtn').disabled = true; document.getElementById('githubSaveBtn').disabled = true; updateAdminDeleteButtons(); }
-  function toggleAdmin() { isAdminLoggedIn ? logoutAdmin() : showAdminLoginModal(); }
 
   function uploadGame() {
     if (!isAdminLoggedIn) { showToast("Login required", true); return; }
@@ -427,8 +581,59 @@
     saveGames(gamesData);
     renderFilterButtons(); renderGames();
     document.getElementById('gameTitle').value = ""; document.getElementById('gameLink').value = ""; document.getElementById('gameTags').value = ""; document.getElementById('gameScreenshot').value = ""; document.getElementById('gameDesc').value = ""; uploadedImageData = null; document.getElementById('screenshotPreview').innerHTML = '<i class="fas fa-image"></i>';
-    autoBackupToGitHub(`added_${title.replace(/\s/g,'_')}`);
     showToast(`✅ "${title}" added!`);
+  }
+
+  function shareGame(game) {
+    const shareUrl = window.location.href;
+    const shareText = `🎮 Check out "${game.title}" on PSP GAMERS!\n\n${game.description.substring(0, 100)}...\n\nPlay here: ${game.link}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: game.title,
+        text: `Check out ${game.title} on PSP GAMERS!`,
+        url: game.link
+      }).catch(() => {});
+    } else {
+      const modal = document.createElement('div');
+      modal.className = 'share-modal';
+      modal.innerHTML = `
+        <h3 style="color:#ff5555;"><i class="fas fa-share-alt"></i> Share ${escapeHtml(game.title)}</h3>
+        <input type="text" id="shareLinkInput" value="${game.link}" readonly>
+        <button id="copyShareLink" style="background:#dc2626;border:none;padding:10px 20px;border-radius:40px;color:white;cursor:pointer;width:100%;"><i class="fas fa-copy"></i> Copy Link</button>
+        <button id="closeShareModal" style="background:transparent;border:1px solid #dc2626;padding:10px;border-radius:40px;color:#ffaaaa;cursor:pointer;width:100%;margin-top:10px;">Close</button>
+      `;
+      document.body.appendChild(modal);
+      document.getElementById('copyShareLink').onclick = () => {
+        const input = document.getElementById('shareLinkInput');
+        input.select();
+        document.execCommand('copy');
+        showToast("Game link copied!");
+      };
+      document.getElementById('closeShareModal').onclick = () => modal.remove();
+      modal.addEventListener('click', (e) => { if(e.target === modal) modal.remove(); });
+    }
+  }
+
+  function openFullscreen(game) {
+    const modal = document.createElement('div');
+    modal.className = 'fullscreen-modal';
+    modal.innerHTML = `<div class="close-fullscreen" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></div><div class="fullscreen-content">${game.screenshot && game.screenshot.startsWith('data:') ? `<img src="${game.screenshot}">` : (game.screenshot ? `<img src="${game.screenshot}" onerror="this.src='https://via.placeholder.com/800x400?text=No+Screenshot'">` : '<i class="fas fa-gamepad" style="font-size:100px;"></i>')}<h2 class="fullscreen-title">${escapeHtml(game.title)}</h2><p style="color:#ccc;margin-top:15px;">${escapeHtml(game.description)}</p><div style="display:flex;gap:15px;justify-content:center;margin-top:20px;"><a href="${escapeHtml(game.link)}" target="_blank" style="background:#dc2626;padding:10px 30px;border-radius:40px;color:white;text-decoration:none;"><i class="fas fa-download"></i> Play Now</a><button onclick="window.shareGameFunc('${game.id}')" style="background:#2a0a0a;border:1px solid #dc2626;padding:10px 30px;border-radius:40px;color:#ffaaaa;cursor:pointer;"><i class="fas fa-share-alt"></i> Share</button></div></div>`;
+    document.body.appendChild(modal);
+    modal.addEventListener('click', (e) => { if(e.target === modal) modal.remove(); });
+    window.shareGameFunc = (id) => { const g = gamesData.find(g => g.id === id); if(g) { shareGame(g); modal.remove(); } };
+  }
+
+  function rateGame(gameId, starValue) {
+    const idx = gamesData.findIndex(g => g.id === gameId);
+    if(idx !== -1) {
+      gamesData[idx].ratings.push(starValue);
+      gamesData[idx].averageRating = gamesData[idx].ratings.reduce((a,b)=>a+b,0)/gamesData[idx].ratings.length;
+      saveGames(gamesData);
+      renderFilterButtons();
+      renderGames();
+      showToast(`⭐ Rated ${gamesData[idx].title} ${starValue} stars!`);
+    }
   }
 
   function renderFilterButtons() {
@@ -446,14 +651,6 @@
     if(currentGenreFilter!=="all") filtered = filtered.filter(g=>g.genre===currentGenreFilter);
     if(currentTagFilter!=="all") filtered = filtered.filter(g=>g.tags&&g.tags.some(t=>t.toLowerCase()===currentTagFilter));
     return filtered;
-  }
-
-  function openFullscreen(game) {
-    const modal = document.createElement('div');
-    modal.className = 'fullscreen-modal';
-    modal.innerHTML = `<div class="close-fullscreen" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></div><div class="fullscreen-content">${game.screenshot && game.screenshot.startsWith('data:') ? `<img src="${game.screenshot}">` : (game.screenshot ? `<img src="${game.screenshot}" onerror="this.src='https://via.placeholder.com/800x400?text=No+Screenshot'">` : '<i class="fas fa-gamepad" style="font-size:100px;"></i>')}<h2 class="fullscreen-title">${escapeHtml(game.title)}</h2><p style="color:#ccc;margin-top:15px;">${escapeHtml(game.description)}</p><a href="${escapeHtml(game.link)}" target="_blank" style="display:inline-block;margin-top:20px;background:#dc2626;padding:10px 30px;border-radius:40px;color:white;text-decoration:none;"><i class="fas fa-download"></i> Play Now</a></div>`;
-    document.body.appendChild(modal);
-    modal.addEventListener('click', (e) => { if(e.target === modal) modal.remove(); });
   }
 
   function renderGames() {
@@ -475,50 +672,68 @@
           <div class="game-title-row"><span class="game-title">${escapeHtml(game.title)}</span><span class="genre-tag">${escapeHtml(game.genre)}</span></div>
           <div class="tags-container">${game.tags?.map(t=>`<span class="game-tag">#${escapeHtml(t)}</span>`).join('')||'<span>no tags</span>'}</div>
           <div class="game-desc">${escapeHtml(game.description).substring(0,100)}...</div>
-          <div class="rating-section"><div class="stars-container" data-gameid="${game.id}" onclick="event.stopPropagation()">${[1,2,3,4,5].map(i => `<i class="star ${(game.ratings?.reduce((a,b)=>a+b,0)/game.ratings?.length||0)>=i ? '' : 'inactive-star'}" data-star-value="${i}" data-game="${game.id}" style="font-size:22px;cursor:pointer;color:${(game.ratings?.reduce((a,b)=>a+b,0)/game.ratings?.length||0)>=i ? '#ffd700' : '#4a4a4a'};">★</i>`).join('')}</div><div class="avg-rating"><i class="fas fa-chart-simple"></i> ${avg} (${game.ratings?.length||0} votes)</div></div>
-          <button class="download-link" data-url="${escapeHtml(game.link)}" onclick="event.stopPropagation();window.open('${escapeHtml(game.link)}','_blank')"><i class="fas fa-download"></i> Play Game</button>
+          <div class="rating-section">
+            <div class="stars-container" data-gameid="${game.id}" onclick="event.stopPropagation()">
+              ${[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map(v => `<i class="star fas fa-star" data-star-value="${v}" data-game="${game.id}" style="font-size:20px; cursor:pointer; color:#ffd700; margin-right:2px;"></i>`).join('')}
+            </div>
+            <div class="avg-rating"><i class="fas fa-chart-simple"></i> ${avg} (${game.ratings?.length||0} votes)</div>
+          </div>
+          <div class="action-buttons" onclick="event.stopPropagation()">
+            <button class="download-link" data-url="${escapeHtml(game.link)}"><i class="fas fa-download"></i> Play</button>
+            <button class="share-link" data-game-id="${game.id}"><i class="fas fa-share-alt"></i> Share</button>
+          </div>
           <div class="admin-actions" id="adminActions-${game.id}" style="display: none;" onclick="event.stopPropagation()"><button class="delete-game" data-id="${game.id}"><i class="fas fa-trash-alt"></i> Delete</button></div>
         </div>`;
       container.appendChild(card);
     });
-    attachStarEvents(); attachDeleteEvents(); updateAdminDeleteButtons();
+    
+    // Attach events
+    document.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const val = parseFloat(star.dataset.starValue);
+        const id = star.dataset.game;
+        rateGame(id, val);
+      });
+    });
+    document.querySelectorAll('.download-link').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.open(btn.dataset.url, '_blank');
+      });
+    });
+    document.querySelectorAll('.share-link').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.gameId;
+        const game = gamesData.find(g => g.id === id);
+        if(game) shareGame(game);
+      });
+    });
+    document.querySelectorAll('.delete-game').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if(!isAdminLoggedIn) { showToast("Login required", true); return; }
+        const id = btn.dataset.id;
+        if(confirm("Delete game?")) {
+          const title = gamesData.find(g=>g.id===id)?.title;
+          gamesData = gamesData.filter(g=>g.id!==id);
+          saveGames(gamesData);
+          renderFilterButtons();
+          renderGames();
+          showToast(`🗑️ "${title}" deleted`);
+        }
+      });
+    });
+    updateAdminDeleteButtons();
   }
 
-  function attachStarEvents() {
-    document.querySelectorAll('.star').forEach(star => {
-      star.removeEventListener('click', starClickHandler);
-      star.addEventListener('click', starClickHandler);
-    });
+  function updateAdminDeleteButtons() { 
+    document.querySelectorAll('[id^="adminActions-"]').forEach(div => { 
+      div.style.display = isAdminLoggedIn ? 'flex' : 'none'; 
+    }); 
   }
-  function starClickHandler(e) {
-    e.stopPropagation();
-    const star = e.currentTarget;
-    const val = parseInt(star.dataset.starValue);
-    const id = star.dataset.game;
-    const idx = gamesData.findIndex(g => g.id === id);
-    if(idx !== -1) {
-      gamesData[idx].ratings.push(val);
-      gamesData[idx].averageRating = gamesData[idx].ratings.reduce((a,b)=>a+b,0)/gamesData[idx].ratings.length;
-      saveGames(gamesData);
-      renderFilterButtons();
-      renderGames();
-      showToast(`⭐ Rated ${gamesData[idx].title} ${val} stars!`);
-      autoBackupToGitHub(`rated_${gamesData[idx].title.replace(/\s/g,'_')}`);
-    }
-  }
-  function attachDeleteEvents() {
-    document.querySelectorAll('.delete-game').forEach(btn => {
-      btn.removeEventListener('click', deleteHandler);
-      btn.addEventListener('click', deleteHandler);
-    });
-  }
-  function deleteHandler(e) {
-    e.stopPropagation();
-    if(!isAdminLoggedIn) { showToast("Login required", true); return; }
-    const id = e.currentTarget.dataset.id;
-    if(confirm("Delete game?")) { const title = gamesData.find(g=>g.id===id)?.title; gamesData = gamesData.filter(g=>g.id!==id); saveGames(gamesData); renderFilterButtons(); renderGames(); autoBackupToGitHub(`deleted_${title?.replace(/\s/g,'_')}`); showToast(`🗑️ "${title}" deleted`); }
-  }
-  function updateAdminDeleteButtons() { document.querySelectorAll('[id^="adminActions-"]').forEach(div => { div.style.display = isAdminLoggedIn ? 'flex' : 'none'; }); }
+  
   function clearAllFilters() { currentGenreFilter = "all"; currentTagFilter = "all"; renderFilterButtons(); renderGames(); showToast("Filters cleared"); }
   function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
 
@@ -528,9 +743,10 @@
     renderGames();
     document.getElementById('uploadGameBtn')?.addEventListener('click', uploadGame);
     document.getElementById('adminToggleBtn')?.addEventListener('click', toggleAdmin);
-    document.getElementById('manualBackupBtn')?.addEventListener('click', () => autoBackupToGitHub("manual_backup"));
-    document.getElementById('githubSaveBtn')?.addEventListener('click', saveToGitHubDirectory);
+    document.getElementById('githubBackupBtn')?.addEventListener('click', saveToGitHubBackup);
+    document.getElementById('loadFromGitHubBtn')?.addEventListener('click', loadFromGitHubBackup);
     document.getElementById('clearFiltersBtn')?.addEventListener('click', clearAllFilters);
+    updateBackupCount();
   });
 </script>
 </body>
