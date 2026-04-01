@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-01T15:05:00.946Z",
+  "timestamp": "2026-04-01T15:05:12.983Z",
   "lastAction": "rated_GTA_SAN_ANDREAS_PSP",
   "totalGames": 1,
   "games": [
@@ -19,9 +19,10 @@
         4,
         3,
         4.5,
-        5
+        5,
+        1.5
       ],
-      "averageRating": 4.125,
+      "averageRating": 3.6,
       "createdAt": 1775055820037
     }
   ]
