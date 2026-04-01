@@ -1,6 +1,6 @@
 # 🔴 𝕻𝕾𝕻 𝕲𝕬𝕸𝕰𝕽𝕾™ - Red & Black Game Vault
 
-[![Website](https://img.shields.io/badge/Website-Live-red)](https://DarkLord813.github.io/pspgamers)
+[![Website](https://img.shields.io/badge/Website-Live-red)](https://DarkLord813.github.io)
 [![License](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
 [![Made with](https://img.shields.io/badge/Made%20with-HTML%2FCSS%2FJS-red)]()
 
@@ -55,7 +55,7 @@
 
 ## 🚀 **Live Demo**
 
-Visit the live website at: `https://DarkLord813.github.io/pspgamers`
+Visit the live website at: `https://DarkLord813.github.io`
 
 ---
 
